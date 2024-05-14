@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://fqbml2cu6h00"]
+
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_ar2ad"]
+[ext_resource type="Texture2D" uid="uid://p3ni1ck20lc1" path="res://assets/sprites/slime_green.png" id="1_sc8nj"]
+[ext_resource type="PackedScene" uid="uid://dg01vl6xbpskn" path="res://scenes/killzone.tscn" id="2_4brd0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbkee"]
+atlas = ExtResource("1_sc8nj")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lb8dw"]
+atlas = ExtResource("1_sc8nj")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q66wl"]
+atlas = ExtResource("1_sc8nj")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kc0bs"]
+atlas = ExtResource("1_sc8nj")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n0chx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbkee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lb8dw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q66wl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kc0bs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ldb7n"]
+size = Vector2(10, 15)
+
+[node name="Slime" type="Node2D"]
+script = ExtResource("1_ar2ad")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_n0chx")
+autoplay = "default"
+
+[node name="Killzone" parent="." instance=ExtResource("2_4brd0")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_ldb7n")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, 5)
+target_position = Vector2(8, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, 5)
+target_position = Vector2(-8, 0)
